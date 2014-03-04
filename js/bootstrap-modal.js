@@ -125,14 +125,14 @@
 				this.$element.css('margin-left', '');
 			}
 
-			this.$element.find('.modal-body')
+			this.$element.find(this.options.overflow)
 				.css('overflow', '')
 				.css(prop, '');
 
 			if (value){
-				this.$element.find('.modal-body')
-					.css('overflow', 'auto')
-					.css(prop, value);
+				var body = this.$element.find(this.options.overflow);
+				body.css('overflow', 'auto')
+					.css(prop, (typeof(value) == 'function' ? value() : value) + 'px');
 			}
 
 			var modalOverflow = $(window).height() - 10 < this.$element.height();
@@ -211,7 +211,7 @@
 			var value = this.options.height || this.options.maxHeight;
 
 			if (value){
-				this.$element.find('.modal-body')
+				this.$element.find(this.options.overflow)
 					.css('overflow', '')
 					.css(prop, '');
 			}
@@ -349,6 +349,7 @@
 		focusOn: null,
 		replace: false,
 		resize: false,
+		overflow: '.modal-body',
 		attentionAnimation: 'shake',
 		manager: 'body',
 		spinner: '<div class="loading-spinner" style="width: 200px; margin-left: -100px;"><div class="progress progress-striped active"><div class="bar" style="width: 100%;"></div></div></div>',
